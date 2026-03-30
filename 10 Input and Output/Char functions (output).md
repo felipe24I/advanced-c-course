@@ -18,16 +18,16 @@ int putc(int char, FILE *fp);
 * **3.** It writes **one character** to that location
 
 ### Example 1: Writing to Screen
-´´´c
+```c
 putc('A', stdout);  // prints A to screen
 putc('\n', stdout); // prints newline to screen
-´´´
+```
 
 ### Example 2: Writing to a File
-´´´c
+```c
 FILE *file = fopen("output.txt", "w");
 putc('B', file);    // writes B to the file
 putc('\n', file);   // writes newline to the file
 fclose(file);
-´´´
+```
 
