@@ -135,7 +135,7 @@ int ungetc(int char, FILE *stream);
 
 * **Returns:** the character pushed back on success, or EOF on failure
 
-### Example 1: 
+### Example 1: Skipping Whitespace Before Reading Input with ungetc()
 
 ```c
 #include <stdio.h>
