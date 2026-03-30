@@ -139,6 +139,7 @@ int ungetc(int char, FILE *stream);
 
 ```c
 #include <stdio.h>
+#include <ctype.h>
 
 int main() {
   char ch = 0;
