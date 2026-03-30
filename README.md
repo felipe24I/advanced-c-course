@@ -1,2 +1,2 @@
-# Advance C course
+# Advance C Course
 Advanced C programming course covering pointers, memory management, data structures, and system-level concepts.
