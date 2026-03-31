@@ -208,4 +208,55 @@ int main()
 }
 ```
 
+## 4. puts()
+is a **string output function** that writes a string to **standard output (stdout)** — usually the screen — and **automatically adds a newline** at the end.
+
+```c
+int puts(const char *str);
+```
+
+* **str:** Pointer to the string to be printed
+* **Returns:** Non-negative value on success, or **EOF** on failure
+
+### Example 1: Basic Usage
+```c
+#include <stdio.h>
+
+int main()
+{
+    puts("Hello, World!");
+    puts("This is a new line");
+    
+    return 0;
+}
+```
+
+### Example 2: Printing an Array of Strings
+```c
+#include <stdio.h>
+
+int main()
+{
+    char *fruits[] = {"Apple", "Banana", "Cherry", "Date", NULL};
+    int i = 0;
+    
+    while (fruits[i] != NULL)
+    {
+        puts(fruits[i]);
+        i++;
+    }
+    
+    return 0;
+}
+```
+
+### Output:
+```text
+Apple
+Banana
+Cherry
+Date
+```
+
+
 
