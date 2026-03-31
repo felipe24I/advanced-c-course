@@ -88,3 +88,78 @@ int main()
 Hello Jason, whatever!
 ```
 
+## 3. fputc()
+is a **character output function** that writes **one single character** to **any output stream** (file, screen, etc.). It's the **safe, standard version** of character output.
+
+```c
+int fputc(int char, FILE *stream);
+```
+
+* **char:** The character you want to write
+* **stream:** Where to write it (file pointer or stdout)
+* **Returns:** The character written on success, or EOF on failure
+
+**Note:** In practice, they behave similarly, but fputc() is guaranteed to be a function, while putc() might be a macro.
+
+### Example 1: Writing to  Screen
+```c
+#include <stdio.h>
+
+int main() {
+    fputc('H', stdout);
+    fputc('i', stdout);
+    fputc('!', stdout);
+    fputc('\n', stdout);
+    
+    return 0;
+}
+```
+
+### Output
+```text
+Hi!
+```
+
+### Example 2: Writing to a file
+```c
+#include <stdio.h>
+
+int main() {
+    FILE *file = fopen("output.txt", "w");
+    
+    if (file != NULL) {
+        fputc('A', file);
+        fputc('B', file);
+        fputc('C', file);
+        fputc('\n', file);
+        fclose(file);
+    }
+    
+    return 0;
+}
+```
+
+### File content
+```text
+ABC
+```
+
+### Example 3: Printing the Alphabet with fputc()
+```c
+#include <stdio.h>
+
+int main()
+{
+    for (char c = 'A'; c <= 'Z'; c++)
+    {
+        fputc(c, stdout);
+    }
+
+    return 0;
+}
+```
+
+### Output
+```text
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+```
