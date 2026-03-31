@@ -31,3 +31,60 @@ putc('\n', file);   // writes newline to the file
 fclose(file);
 ```
 
+## 2. putchar()
+is a **character output function** that writes **one single character** to **standard output (stdout)** — usually the screen.
+
+```c
+int putchar(int char);
+```
+
+* **char:**  the character you want to print
+* **Returns:** the character written on success, or EOF on failure
+
+**Note:** putchar(ch) is equivalent to putc(ch, stdout) — just a shorter, more convenient version.
+
+### Example 1: "Printing 'Hi!' Using putchar()
+```c
+#include <stdio.h>
+
+int main() {
+    putchar('H');
+    putchar('i');
+    putchar('!');
+    putchar('\n');
+    
+    return 0;
+}
+```
+
+### Output:
+```text
+Hi!
+```
+
+### Example 2: Printing a String While Omitting Newline Characters Using putchar()
+```c
+#include <stdio.h>
+
+int main()
+{
+    char string [] = "Hello Jason, \nwhatever!";
+    int i = 0;
+
+    while( string[i] != '\0')
+    {
+        if ( string[i] != '\n')
+        {
+            putchar(string[i]);
+            i++;
+        }
+    }
+    return 0;
+}
+```
+
+### Output:
+```text
+Hello Jason, whatever!
+```
+
