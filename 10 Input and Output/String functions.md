@@ -124,3 +124,88 @@ int main()
     return 0;
 }
 ```
+
+## 3. getline()
+is a **powerful string input function** that reads an entire line of text from any input stream. Unlike fgets(), it **automatically allocates memory** for the string, so there's no buffer size limit.
+
+```c
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+```
+
+* **lineptr:** Pointer to a character pointer (will be allocated/reallocated)
+* **n:** Pointer to a size_t variable storing the allocated size
+* **stream:** Input source (stdin for keyboard, or file pointer)
+* **Returns:** Number of characters read (including newline, excluding null), or -1 on error/EOF
+
+**Note:** getline() is not part of standard C — it's a POSIX/GNU extension (available on Linux, Mac, and Unix systems). On Windows (Code::Blocks/MinGW), it may not be available.
+
+### Example 1: Reading from Keyboard
+```c
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    char *line = NULL;  // getline will allocate memory
+    size_t len = 0;     // size of allocated buffer
+    ssize_t read;
+    
+    printf("Enter some text: ");
+    read = getline(&line, &len, stdin);
+    
+    if (read != -1)
+    {
+        printf("You entered: %s", line);
+        printf("Number of characters read: %zd\n", read);
+        printf("Buffer size allocated: %zu\n", len);
+    }
+    
+    free(line);  // Don't forget to free the memory!
+    
+    return 0;
+}
+```
+
+### Output:
+```text
+Enter some text: Hello World!
+You entered: Hello World!
+Number of characters read: 13
+Buffer size allocated: 120
+```
+
+### Example 2: Reading from a File
+```c
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    FILE *file = fopen("example.txt", "r");
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+    int lineNum = 1;
+    
+    if (file == NULL)
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+    
+    while ((read = getline(&line, &len, file)) != -1)
+    {
+        printf("Line %d: %s", lineNum++, line);
+        printf("  (Read %zd characters, buffer size: %zu)\n", read, len);
+    }
+    
+    free(line);
+    fclose(file);
+    
+    return 0;
+}
+```
+
+
