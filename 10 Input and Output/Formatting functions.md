@@ -322,7 +322,160 @@ Age: 25
 City: New York
 ```
 
+### 5. fscanf() vs fgets() + sscanf()
+* **fscanf():** Reads and parses directly from file in one step
+* **fgets() + sscanf():** Reads a line first, then parses it
 
+### Example 1: Reading Integers from File
+#### Using fscanf() Only
+```c
+#include <stdio.h>
+
+int main()
+{
+    FILE *file = fopen("numbers.txt", "r");
+    int a, b, c;
+    
+    if (file == NULL)
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+    
+    // Read directly
+    fscanf(file, "%d %d %d", &a, &b, &c);
+    printf("Read: %d, %d, %d\n", a, b, c);
+    
+    fclose(file);
+    return 0;
+}
+```
+
+#### Using fgets() + sscanf()
+```c
+#include <stdio.h>
+
+int main()
+{
+    FILE *file = fopen("numbers.txt", "r");
+    char line[256];
+    int a, b, c;
+    
+    if (file == NULL)
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+    
+    // Read line first
+    if (fgets(line, sizeof(line), file) != NULL)
+    {
+        // Then parse
+        if (sscanf(line, "%d %d %d", &a, &b, &c) == 3)
+        {
+            printf("Read: %d, %d, %d\n", a, b, c);
+        }
+        else
+        {
+            printf("Parse error! Line: %s", line);
+        }
+    }
+    
+    fclose(file);
+    return 0;
+}
+```
+
+### Example 2: Error Handling with Bad Data
+#### File with Bad Data
+```text
+10 20 abc
+30 40 50
+```
+
+#### Using fscanf() (Hard to Recover)
+```c
+#include <stdio.h>
+
+int main()
+{
+    FILE *file = fopen("data.txt", "r");
+    int a, b, c;
+    int result;
+    
+    while (1)
+    {
+        result = fscanf(file, "%d %d %d", &a, &b, &c);
+        
+        if (result == EOF) break;
+        
+        if (result == 3)
+        {
+            printf("Good: %d %d %d\n", a, b, c);
+        }
+        else
+        {
+            printf("Bad data! Can't recover easily\n");
+            break;  // Stops reading
+        }
+    }
+    
+    fclose(file);
+    return 0;
+}
+```
+
+#### output:
+```text
+Good: 10 20 30
+Bad data! Can't recover easily
+```
+
+The second good line is never read!
+
+#### Using fgets() + sscanf() (Easy Recovery)
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    FILE *file = fopen("data.txt", "r");
+    char line[256];
+    int a, b, c;
+    int lineNum = 0;
+    
+    while (fgets(line, sizeof(line), file) != NULL)
+    {
+        lineNum++;
+        
+        // Remove newline for clean display
+        line[strcspn(line, "\n")] = '\0';
+        
+        if (sscanf(line, "%d %d %d", &a, &b, &c) == 3)
+        {
+            printf("Line %d (GOOD): %d %d %d\n", lineNum, a, b, c);
+        }
+        else
+        {
+            printf("Line %d (BAD): '%s' - Skipping\n", lineNum, line);
+            // Continue reading next lines!
+        }
+    }
+    
+    fclose(file);
+    return 0;
+}
+```
+
+#### Output
+```text
+Line 1 (GOOD): 10 20 30
+Line 2 (BAD): '10 20 abc' - Skipping
+Line 3 (GOOD): 30 40 50
+```
+
+All lines processed, bad line skipped!
 
 
 
