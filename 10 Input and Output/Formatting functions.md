@@ -477,6 +477,76 @@ Line 3 (GOOD): 30 40 50
 
 All lines processed, bad line skipped!
 
+## 6. fflush()
+is a function that **flushes** (forces writing) the output buffer of a stream. It ensures that any data waiting to be written is immediately sent to the destination (file, screen, etc.).
 
+```c
+int fflush(FILE *stream);
+```
 
+* **stream:** File pointer to flush (or NULL to flush all output streams)
+* **Returns:** 0 on success, EOF on error
+
+**When to Use fflush()**
+* **Displaying progress bars:** Yes
+* **Interactive prompts:** Yes (ensure prompt appears before input)
+* **Before critical operations:** Yes (ensure data is saved)
+* **Before program crash risk:** Yes
+* **Normal output:** Not necessary (flushed automatically)
+* **Clearing input buffer:** NEVER (undefined behavior)
+
+### Example 1: Without fflush() (May Not Show Immediately)
+```c
+#include <stdio.h>
+#include <unistd.h>  // for sleep()
+
+int main()
+{
+    printf("Loading");
+    
+    for (int i = 0; i < 5; i++)
+    {
+        printf(".");
+        sleep(1);  // Wait 1 second
+    }
+    
+    printf("\nDone!\n");
+    
+    return 0;
+}
+```
+
+**Issue:** All dots may appear at once at the end because of buffering!
+
+### Example 2: With fflush() (Shows Progress)
+```c
+#include <stdio.h>
+#include <unistd.h>  // for sleep()
+
+int main()
+{
+    printf("Loading");
+    fflush(stdout);  // Force "Loading" to appear
+    
+    for (int i = 0; i < 5; i++)
+    {
+        printf(".");
+        fflush(stdout);  // Force each dot to appear immediately
+        sleep(1);
+    }
+    
+    printf("\nDone!\n");
+    fflush(stdout);
+    
+    return 0;
+}
+```
+
+### Output (appears progressively):
+```text
+Loading.....
+Done!
+```
+
+Each dot appears one by one!
 
