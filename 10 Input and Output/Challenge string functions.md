@@ -83,7 +83,9 @@ Project → Set program's arguments...
 └─────────────────────────────────┘
 ```
 
-##### two arguments
+##### Multiple arguments
+if you need multiple arguments separate them with spaces 
+
 ```text
 Project → Set program's arguments...
 ┌─────────────────────────────────┐
