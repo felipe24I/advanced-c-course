@@ -222,6 +222,162 @@ Name: Jason
 GPA: 3.85
 Grade: A
 ```
+### 3. fscanf()
+**"file scanf"**, is a **formatted input function** that reads formatted data from a **file** (or any input stream) according to a format string. It's like **scanf()**, but reads from a file instead of the keyboard.
+
+```c
+int fscanf(FILE *stream, const char *format, ...);
+```
+
+* **stream:** File pointer (where to read from)
+* **format:** Format string specifying expected input
+* **...:** Pointers to variables where values will be stored
+* **Returns:** Number of successfully matched and assigned items, or EOF on error/end-of-file
+
+### Example 1: Reading Integers from a File
+```c
+#include <stdio.h>
+
+int main()
+{
+    FILE *file = fopen("numbers.txt", "r");
+    int a, b, c;
+    
+    if (file == NULL)
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+    
+    fscanf(file, "%d %d %d", &a, &b, &c);
+    
+    printf("Read: %d, %d, %d\n", a, b, c);
+    printf("Sum: %d\n", a + b + c);
+    
+    fclose(file);
+    
+    return 0;
+}
+```
+
+### File numbers.txt:
+```text
+10 20 30
+```
+
+### Output:
+```text
+Read: 10, 20, 30
+Sum: 60`text
+```
+
+### Example 2: Reading Multiple Lines with Loop
+```c
+#include <stdio.h>
+
+int main()
+{
+    FILE *file = fopen("students.txt", "r");
+    int id;
+    char name[50];
+    float gpa;
+    int count = 0;
+    
+    if (file == NULL)
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+    
+    printf("Student List:\n");
+    printf("-------------\n");
+    
+    while (fscanf(file, "%d %s %f", &id, name, &gpa) == 3)
+    {
+        count++;
+        printf("%d. ID: %d, Name: %s, GPA: %.2f\n", count, id, name, gpa);
+    }
+    
+    printf("\nTotal students: %d\n", count);
+    
+    fclose(file);
+    
+    return 0;
+}
+```
+
+### File students.txt:
+```text
+101 Jason 3.85
+102 Maria 3.92
+103 David 3.45
+104 Anna 3.78
+```
+
+### Output:
+```text
+Student List:
+-------------
+1. ID: 101, Name: Jason, GPA: 3.85
+2. ID: 102, Name: Maria, GPA: 3.92
+3. ID: 103, Name: David, GPA: 3.45
+4. ID: 104, Name: Anna, GPA: 3.78
+
+Total students: 4
+```
+
+### Example 3: Reading CSV File
+```c
+#include <stdio.h>
+
+int main()
+{
+    FILE *file = fopen("data.csv", "r");
+    int id;
+    char name[50];
+    int age;
+    char city[50];
+    
+    if (file == NULL)
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+    
+    // Skip header line
+    char header[100];
+    fgets(header, sizeof(header), file);
+    
+    printf("Data from CSV:\n");
+    printf("--------------\n");
+    
+    while (fscanf(file, "%d,%[^,],%d,%[^\n]", &id, name, &age, city) == 4)
+    {
+        printf("ID: %d, Name: %s, Age: %d, City: %s\n", id, name, age, city);
+    }
+    
+    fclose(file);
+    
+    return 0;
+}
+```
+
+### File data.csv:
+```text
+ID,Name,Age,City
+1,Jason,25,New York
+2,Maria,30,Los Angeles
+3,David,22,Chicago
+```
+
+### Output:
+```text
+Data from CSV:
+--------------
+ID: 1, Name: Jason, Age: 25, City: New York
+ID: 2, Name: Maria, Age: 30, City: Los Angeles
+ID: 3, Name: David, Age: 22, City: Chicago
+```
 
 ## 4. sscanf()
 **"string scan formatted"**, is a **formatted input function** that reads formatted data from a **string** (character array) instead of from the keyboard or a file. It's like scanf(), but the input comes from a string.
