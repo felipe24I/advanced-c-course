@@ -152,6 +152,31 @@ int main() {
 }
 ```
 
+### user types "Hello"
+```text
+User input:    Hello
+           (three spaces then Hello)
+```
+
+**Step-by-step:**
+
+1. getchar() reads first space ' ' → whitespace → loop continues
+
+2. getchar() reads second space ' ' → whitespace → loop continues
+
+3. getchar() reads third space ' ' → whitespace → loop continues
+
+4. getchar() reads 'H' → NOT whitespace → loop ends
+
+5. ungetc('H', stdin) puts 'H' back
+
+6. getchar() reads 'H' again
+
+### Output:
+```text
+Char is H
+```
+
 ### Example 2: Reading Until a Digit
 ```c
 #include <stdio.h>
