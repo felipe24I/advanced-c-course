@@ -1,6 +1,7 @@
 ## Challenge goto statement
 Create a program that uses only goto statements (no looping constructs like for, while, or do-while) to print a triangular pattern of asterisks. 
 The program must simulate nested looping behavior using goto to control both row and column iteration, resulting in an output that forms a triangle shape
+
 <img width="107" height="145" alt="image" src="https://github.com/user-attachments/assets/5f9e7469-c203-4429-991c-9ab090aaba45" />
 
 ## Solution
