@@ -550,3 +550,29 @@ Done!
 
 Each dot appears one by one!
 
+### Example 3: Flushing a File
+```c
+#include <stdio.h>
+
+int main()
+{
+    FILE *file = fopen("output.txt", "w");
+    
+    if (file == NULL)
+    {
+        printf("Error opening file\n");
+        return 1;
+    }
+    
+    fprintf(file, "Writing data...\n");
+    fflush(file);  // Force data to be written to disk NOW
+    
+    // Data is guaranteed to be on disk even if program crashes
+    
+    fprintf(file, "More data...\n");
+    
+    fclose(file);  // fclose automatically flushes
+    
+    return 0;
+}
+```
