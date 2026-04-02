@@ -1,4 +1,4 @@
-## compiling multiple source files from the command line
+## Compiling multiple source files from the command line
 ### Basic Concepts
 When you have a program split across multiple .c files, you need to compile them together and link them into a single executable.
 ```bash
