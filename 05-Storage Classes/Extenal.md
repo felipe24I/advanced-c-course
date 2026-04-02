@@ -260,3 +260,45 @@ int main() {
     return 0;
 }
 ```
+
+## Common Use Case
+### Application State
+```c
+// app_state.h
+#ifndef APP_STATE_H
+#define APP_STATE_H
+
+typedef struct {
+    int initialized;
+    char version[32];
+    int user_count;
+    int is_running;
+} AppState;
+
+extern AppState app;
+
+void app_init(void);
+void app_shutdown(void);
+
+#endif
+
+// app_state.c
+#include "app_state.h"
+#include <string.h>
+
+AppState app = {
+    .initialized = 0,
+    .version = "1.0.0",
+    .user_count = 0,
+    .is_running = 0
+};
+
+void app_init(void) {
+    app.initialized = 1;
+    app.is_running = 1;
+}
+
+void app_shutdown(void) {
+    app.is_running = 0;
+}
+```
