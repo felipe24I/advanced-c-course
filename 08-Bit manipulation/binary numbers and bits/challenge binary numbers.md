@@ -1,6 +1,7 @@
 ## Challenge binary numbers
 You need to write two functions: one that converts a binary number (given as a long long) into its decimal integer equivalent, and another that converts a decimal integer into its binary representation (returned as a long long). Together, these challenges test your understanding of converting between binary and decimal number systems.
 
+## Solution
 ```c
 #include <stdio.h>
 #include <math.h>
