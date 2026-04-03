@@ -21,8 +21,15 @@ return_type function_name(parameter, ...) {
 
 the ellipsis (...) indicates that additional arguments can follow.
 
+the ellipsis (...) must be the last argument
+
+**variadic function** has two parts
+
+* **1. mandatory arguments:** at least one is required and is the first one listed, order is very important
+* **2. optional arguments:** listed after mandatory arguments
+
 ### Essential Macros
-* **1. va_list:** Declare argument list variable
+* **1. va_list:** Declare argument list variable (pointer fot variable argument list)
 * **2. va_start:** Initialize argument list
 * **3. va_arg:** Get next argument
 * **4. va_end:** Clean uo
