@@ -372,7 +372,7 @@ int main() {
 }
 ```
 
-## Important Note for structs and unions (accessing to them)
+## Important note for structs and unions (accessing to them)
 ### 1. The Dot Operator (.)
 You use the dot operator when you have a direct variable (the actual instance) of a struct or union.
 * **Syntax:** object.member
@@ -397,3 +397,24 @@ You use the arrow operator when you have a pointer to a struct or union. It is s
 struct Player *ptr = &p1;
 ptr->health = 80; // Accessing via address
 ```
+
+## Another important note for structs and unions (accessing to them)
+
+How can you access the first character of the string sval?
+
+```c
+struct  {
+    char *name;
+    union  {
+        char *sval;
+    } u;
+} tab[10];
+```
+
+* *tab[i].u.sval
+* tab[i].u.sval[0]
+
+Both are correct because both expressions are valid for accessing the first character of the string sval within the structure.
+
+* By using *tab[i].u.sval, you obtain the first character directly}
+* while tab[i].u.sval[0] also provides the same character, validating that both forms are equivalent.
