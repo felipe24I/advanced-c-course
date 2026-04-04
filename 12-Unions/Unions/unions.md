@@ -371,3 +371,29 @@ int main() {
     return 0;
 }
 ```
+
+## Important Note for structs and unions (accessing to them)
+### 1. The Dot Operator (.)
+You use the dot operator when you have a direct variable (the actual instance) of a struct or union.
+* **Syntax:** object.member
+* **Analogy:** You have the box in your hands, and you are opening it to see what’s inside.
+
+```c
+struct Player {
+    int health;
+};
+
+struct Player p1; 
+p1.health = 100; // Direct access
+```
+
+### 2. The Arrow Operator (->)
+You use the arrow operator when you have a pointer to a struct or union. It is shorthand for "dereference the pointer first, then access the member."
+* **Syntax:** pointer->member
+* **The Math:** ptr->member is exactly the same as (*ptr).member.
+* **Analogy:** You have a map with an address. You have to follow the map to the house before you can walk through the door.
+
+```c
+struct Player *ptr = &p1;
+ptr->health = 80; // Accessing via address
+```
