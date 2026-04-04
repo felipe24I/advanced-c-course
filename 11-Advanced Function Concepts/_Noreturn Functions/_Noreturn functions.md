@@ -241,3 +241,5 @@ int main() {
 }
 ```
 
+**Note:** _Noreturn specifier is only a suggestion for the compiler, meaning the compiler may decide not to optimize the code based on this information. This ensures that even if you indicate a function does not return, it does not guarantee automatic optimization.
+
