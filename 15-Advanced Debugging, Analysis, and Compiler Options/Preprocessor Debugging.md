@@ -102,7 +102,7 @@ return 50
 50
 ```
 
-### Example 3: same example 2 but with a macro
+### Example 3: same example 2 but defined the macro DEBUG inside the program
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -142,8 +142,8 @@ int main(int argc, char* argv[])
 
 #### Output example:
 ```bash
-# Compile with DEBUG to enable debug
-gcc -D DEBUG program.c -o program
+# Compile (without DEBUG because it is defined inside the program, so we cant redefined)
+gcc program.c -o program
 ```
 
 ```bash
