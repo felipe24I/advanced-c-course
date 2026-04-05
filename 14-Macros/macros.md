@@ -94,38 +94,6 @@ int main() {
 }
 ```
 
-### Predefined Macros
-```c
-#include <stdio.h>
-
-int main() {
-    // Standard predefined macros
-    printf("File: %s\n", __FILE__);
-    printf("Line: %d\n", __LINE__);
-    printf("Date: %s\n", __DATE__);
-    printf("Time: %s\n", __TIME__);
-    printf("Function: %s\n", __func__);  // C99
-    printf("STDC: %d\n", __STDC__);
-    
-    #ifdef __STDC_VERSION__
-        printf("C version: %ld\n", __STDC_VERSION__);
-    #endif
-    
-    // Compiler-specific
-    #ifdef __GNUC__
-        printf("GCC version: %d.%d\n", __GNUC__, __GNUC_MINOR__);
-    #endif
-    
-    #ifdef _WIN32
-        printf("Windows platform\n");
-    #elif __linux__
-        printf("Linux platform\n");
-    #endif
-    
-    return 0;
-}
-```
-
 ### Macros vs Functions
 #### Speed
 * A macro is faster than a function
