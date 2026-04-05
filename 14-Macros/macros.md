@@ -25,6 +25,10 @@ int main() {
 ## Types of Macros
 ### 1. Object-like Macros (Constants)
 ```c
+#define NAME value
+```
+
+```c
 // Simple constants
 #define MAX_SIZE 100
 #define BUFFER_SIZE 1024
@@ -51,6 +55,10 @@ int main() {
 ```
 
 ### 2. Function-like Macros
+```c
+#define macro_name( list_of_identifiers) substitution_string
+```
+
 ```c
 #include <stdio.h>
 
