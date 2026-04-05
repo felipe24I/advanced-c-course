@@ -48,3 +48,34 @@ int main()
     return 0;
 }
 ```
+
+## Solution 2
+```c
+#include <stdio.h>
+
+#define IS_UPPER(c) (c >= 'A' && c <= 'Z')
+#define IS_LOWER(c) (c >= 'a' && c <= 'z')
+
+int main()
+{
+    char c;
+
+    printf("Enter any character: ");
+    c = getchar();
+
+    if (IS_UPPER(c))
+    {
+        printf("'%c' is uppercase\n", c);
+    }
+    else if (IS_LOWER(c))
+    {
+        printf("'%c' is lowercase\n", c);
+    }
+    else
+    {
+        printf("Entered character is not in the alphabet\n");
+    }
+
+    return 0;
+}
+```
