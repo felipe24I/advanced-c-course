@@ -34,11 +34,11 @@ int main()
 
     if (IS_UPPER(c))
     {
-        printf("%c is uppercase\n", c);
+        printf("'%c' is uppercase\n", c);
     }
     else if (IS_LOWER(c))
     {
-        printf("%c is lowercase\n", c);
+        printf("'%c' is lowercase\n", c);
     }
     else
     {
