@@ -126,3 +126,6 @@ int main() {
     return 0;
 }
 ```
+
+### Diference between #error and #pragma GCC error
+#error is standard C that works on all compilers. #pragma GCC error is a GCC/Clang-specific extension that also stops compilation but is not portable to other compilers like MSVC.
