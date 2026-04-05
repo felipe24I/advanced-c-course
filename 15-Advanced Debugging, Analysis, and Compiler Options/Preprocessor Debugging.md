@@ -102,7 +102,7 @@ return 50
 50
 ```
 
-### Example 3
+### Example 3: same example 2 but with a macro
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -138,6 +138,21 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+```
+
+#### Output example:
+```bash
+# Compile with DEBUG to enable debug
+gcc -D DEBUG program.c -o program
+```
+
+```bash
+./program 5 10
+processed 2 arguments
+arg1 = 5, arg2 = 10
+process(5, 10)
+return 50
+50
 ```
 
 ### Debug levels
