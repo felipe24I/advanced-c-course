@@ -10,6 +10,7 @@ GCC (GNU Compiler Collection) options are command-line flags that control how th
 # Basic compilation
 gcc program.c                    # Creates a.out
 gcc program.c -o program         # Names output 'program'
+gcc -g program.c -o program.exe  # with -g flag (debugging information) includes debug symbols (variable names, line numbers, function names)
 gcc -c program.c -o program.o    # Compile only, no linking
 gcc program.o -o program         # Link object file
 
@@ -22,6 +23,34 @@ gcc main.o helper.o -o program   # Link objects
 # Verbose output
 gcc -v program.c                  # Show compilation details
 gcc -### program.c                # Show commands without executing
+```
+
+### Windows CMD/PowerShell:
+```bash
+# These all create program.exe
+gcc main.c -o program       # Creates program.exe
+gcc main.c -o program.exe   # Creates program.exe
+gcc main.c                  # Creates a.exe
+
+# Running them:
+program                     # Runs program.exe
+program.exe                 # Also runs program.exe
+.\program                   # Works
+.\program.exe               # Works
+```
+
+### Linux Terminal:
+```bash
+# Different results
+gcc main.c -o program       # Creates "program" (no extension)
+gcc main.c -o program.exe   # Creates "program.exe" (literal name)
+
+# Running them:
+./program                   # Runs the no-extension version
+./program.exe               # Runs the .exe version if it exists
+
+# .exe means nothing special:
+file program.exe            # May show "ELF executable" (not Windows exe)
 ```
 
 ### Language Standard Options
