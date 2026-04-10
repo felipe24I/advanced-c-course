@@ -138,3 +138,53 @@ main.exe
 
 ##### Running with no parameters
 <img width="1115" height="87" alt="image" src="https://github.com/user-attachments/assets/223c0843-cae2-4752-8cb4-0552de0008c7" />
+
+#### Test 2 - Only one parameter:
+```bash
+main.exe 5
+```
+
+This will crash when accessing argv[2] (doesn't exist)
+
+##### Running with one parameter
+<img width="1115" height="87" alt="image" src="https://github.com/user-attachments/assets/aba8711d-af4d-4c4e-8d0c-714f58d3fa52" />
+
+#### Test 3 - Three parameters (will crash in sum):
+```bash
+main.exe 5 10 15
+```
+
+Output shows it reaches "About to write to *a" then crashes
+
+##### Running with three parameters
+<img width="1222" height="378" alt="image" src="https://github.com/user-attachments/assets/60e1f05d-13f5-462b-8426-9223b50d88be" />
+
+##### Why Didn't It Crash?
+The uninitialized pointer int *a contains whatever garbage value was on the stack. In your case, that random memory address happened to be writable memory, so *a = 5 succeeded. But this is dangerous - you just corrupted some random memory location that might belong to another variable or function!
+
+### Step 4: The "Aha!" Debug Statement
+The challenge specifically asks to add this line after the last successful print:
+
+```c
+int sum(int x, int y, int z) {
+  char c = 2;
+  int *a;
+  
+  fprintf(stderr, "a=%ld\n", (long)a);  // Print the garbage address
+  
+  *a = 5;  // This will fail because 'a' points to invalid memory
+  
+  return (c + x + y + z + *a) / 3;
+}
+```
+
+This prints the random address that a contains (like a=140723845490128), showing it's not pointing to valid memory.
+
+<img width="1212" height="187" alt="image" src="https://github.com/user-attachments/assets/45f2b6ad-edee-4b58-aaee-b983e9f631ea" />
+
+
+##### Why is a=0 instead of garbage?
+This is happening because your compiler is automatically initializing local variables to zero for safety. Many modern compilers (especially with debugging flags) will initialize stack variables to zero to make bugs more predictable.
+
+##### Why the sum wasn't completed
+The program crashed at *a = 5 because a contains 0 (NULL), and writing to NULL causes a segmentation fault!
