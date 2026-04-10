@@ -135,5 +135,6 @@ main.exe
 ```
 ##### Compiling
 <img width="1323" height="48" alt="image" src="https://github.com/user-attachments/assets/d07359d9-1a10-4944-a70a-8b9ae146e45a" />
+
 ##### Running with no parameters
 <img width="1115" height="87" alt="image" src="https://github.com/user-attachments/assets/223c0843-cae2-4752-8cb4-0552de0008c7" />
