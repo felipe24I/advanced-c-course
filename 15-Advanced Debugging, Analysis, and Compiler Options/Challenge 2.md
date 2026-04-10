@@ -188,3 +188,15 @@ This is happening because your compiler is automatically initializing local vari
 
 ##### Why the sum wasn't completed
 The program crashed at *a = 5 because a contains 0 (NULL), and writing to NULL causes a segmentation fault!
+
+### Conclusion
+#### Before (worked):
+The uninitialized pointer a randomly contained a valid memory address (like 0x12345678) that your program was allowed to write to.
+
+#### Now (crashes):
+Adding the debug statement fprintf(stderr, "a=%ld\n", (long)a); changed the stack layout, so now a randomly contains 0 (NULL) - an invalid address that crashes when you try to write to it.
+
+#### Bottom line:
+Undefined behavior is unpredictable. Same bug, different results, just because you added one line of code. The program was never correct - you just got lucky the first time.
+
+
