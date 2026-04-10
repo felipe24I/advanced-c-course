@@ -97,3 +97,38 @@ int sum(int x, int y, int z) {
 }
 ```
 
+### Step 2: Add Debugging to main()
+Add print statements to trace execution in main:
+
+```c
+int main(int argc, char *argv[]) {
+  int i, j, k;
+  int result;
+  
+  fprintf(stderr, "Program started with %d arguments\n", argc);
+  
+  if (argc == 1) {
+     printf("Please specify three numbers as parameters.\n");
+     exit(1);
+  }
+  
+  fprintf(stderr, "Converting arguments to integers...\n");
+  i = atoi(argv[1]);
+  j = atoi(argv[2]);
+  k = atoi(argv[3]);
+  fprintf(stderr, "i=%d, j=%d, k=%d\n", i, j, k);
+  
+  fprintf(stderr, "About to call sum(i,j,12)\n");
+  result = sum(i,j,12) + sum(j,k,19) + sum(i,k,13);
+  fprintf(stderr, "All sum calls completed\n");
+  
+  printf("%d\n", result);
+  
+  return 0;
+}
+```
+
+### Step 3: Run with Different Parameters
+#### Test 1 - No parameters:
+```bash
+```
