@@ -339,3 +339,19 @@ compareInts(&78, &23) returns 1 (78 > 23)
 
 Final array: [5, 12, 23, 34, 45, 67, 78, 89]
 ```
+
+### Note: Pointer to a function vs. function returning a pointer
+```c
+/* function returning pointer to int */
+int *func(int a, float b);
+
+/* pointer to function returning int */
+int (*func)(int a, float b);
+```
+
+* the difference between the above two declarations is only in the parentheses
+* be very careful about placing the parentheses in the right place
+
+#### Explanation of the Difference:
+* int *func(int a, float b);	Function returning pointer to int, (is a Function)
+* int (*func)(int a, float b);	Pointer to function returning int, (is a Pointer)
