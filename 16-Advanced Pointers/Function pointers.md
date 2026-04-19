@@ -144,3 +144,55 @@ int main() {
 }
 ```
 
+### Example 1:
+```c
+#include <stdio.h>
+
+// Regular function
+int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    // Declare function pointer
+    int (*ptr)(int, int);
+    
+    // Assign function address
+    ptr = &add;  // or just "ptr = add;" (function name decays to pointer)
+    
+    // Call through pointer
+    int result = ptr(5, 3);     // result = 8
+    // Or: int result = (*ptr)(5, 3);
+    
+    printf("%d\n", result);
+    return 0;
+}
+```
+
+### Example 2:
+```c
+#include <stdio.h>
+
+int somedisplay(void);  // Use void for no parameters
+
+int main(void)
+{
+    int (*func_ptr)(void);  // Match the function signature
+    func_ptr = somedisplay;
+    
+    printf("\n Address of Function somedisplay is %p\n", (void*)func_ptr);
+    
+    // Either way works:
+    (*func_ptr)();  // Explicit dereference
+    // func_ptr();  // Simpler - also works
+    
+    return 0;
+}
+
+int somedisplay(void)
+{
+    printf("\n - Displaying some texts -\n");
+    return 0;
+}
+```
+
