@@ -90,5 +90,5 @@ int **c = **b;
 The declaration "int **c = **b;" is wrong because it tries dereference a double pointer **b, which results in a value of type int, while is expected a double pointer int **c.
 This can result in an undefined behaviour or run-time error 
 
-### Npte:
+### Note:
 Memory on the heap is faster to access and the size is limited
