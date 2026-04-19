@@ -117,3 +117,6 @@ What will be the output of the below program?
 ```
 
 R// equal
+
+#### Note: 
+local variables are stored in an area called **stack**
