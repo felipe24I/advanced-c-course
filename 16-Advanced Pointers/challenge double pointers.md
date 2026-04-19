@@ -73,3 +73,79 @@ int main()
     return 0;
 }
 ```
+
+## Challenge 2
+Write a program to use a double pointer for dynamic memory allocation.
+1. **Create a function** named `allocateMemory` that takes a double pointer of type `int` as a parameter:
+
+```c
+void allocateMemory(int **ptr);
+```
+* This function should allocate memory for the pointer using malloc()
+2. Modify your main function to do the following:
+* Create an integer pointer and initialize it to NULL
+* Invoke the allocateMemory function, passing in the address of the integer pointer (double pointer)
+* Assign a value to the integer pointer (dereference the pointer)
+* Print the value that the pointer is pointing to (dereference)
+* Free the allocated memory
+
+### Example Output
+```text
+Value: 42
+```
+
+## Soution
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+void allocateMemory(int **ptr) {
+    // Allocate memory for one integer
+    *ptr = (int*)malloc(sizeof(int));
+    
+    // Check if allocation was successful
+    if (*ptr == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+}
+
+int main() {
+    int *ptr = NULL;           // Integer pointer initialized to NULL
+    
+    allocateMemory(&ptr);      // Pass address of pointer (double pointer)
+    
+    *ptr = 42;                 // Assign value to allocated memory
+    
+    printf("Value: %d\n", *ptr);  // Print the value
+    
+    free(ptr);                 // Free allocated memory
+    ptr = NULL;                // Good practice: set to NULL after free
+    
+    return 0;
+}
+```
+
+### Key Concepts Demonstrated
+* Double pointers (int **ptr) - pointers that store the address of another pointer
+* Passing by address - allowing a function to modify a pointer variable
+* Dynamic memory allocation - using malloc() to allocate heap memory
+* Dereferencing - accessing values through single and double pointers
+* Memory management - proper allocation and deallocation with free()
+
+### Visual Representation
+```text
+main()                         allocateMemory()
+┌─────────────┐                ┌─────────────────────┐
+│ int *ptr    │                │ int **ptr           │
+│ (address)   │◄───────────────│ (address of ptr)    │
+│   0x1000    │                │      0x2000         │
+└─────────────┘                └─────────────────────┘
+       │                                  │
+       │ *ptr = malloc(...)               │ *ptr = malloc(...)
+       ▼                                  ▼
+┌─────────────┐                ┌─────────────────────┐
+│ Heap Memory │                │ Heap Memory         │
+│    42       │                │  0x1000 ────────────►│ 42
+└─────────────┘                └─────────────────────┘
+```
