@@ -99,3 +99,21 @@ int main() {
 
 #### Note:
 A void pointer can be de-refenced when it is cast to concrete data type
+
+#### Note:
+What will be the output of the below program?
+
+```c
+    #include <stdio.h>
+    
+    int main()
+    {
+        int *p = NULL;
+        void *vp = NULL;
+        if (vp == p);
+            printf("equal\n”);
+        return 0;
+    }
+```
+
+R// equal
