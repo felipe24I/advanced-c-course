@@ -96,3 +96,6 @@ int main() {
     return 0;
 }
 ```
+
+#### Note:
+A void pointer can be de-refenced when it is cast to concrete data type
