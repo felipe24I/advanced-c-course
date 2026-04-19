@@ -149,3 +149,8 @@ main()                         allocateMemory()
 │    42       │                │  0x1000 ────────────►│ 42
 └─────────────┘                └─────────────────────┘
 ```
+
+#### Double Pointer Notes
+
+1. **Single pointer as argument** → modifies local copy, not original pointer
+2. **Double pointer as argument** → modifies original pointer, preserves memory allocation outside function scope
