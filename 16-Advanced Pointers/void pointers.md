@@ -71,8 +71,28 @@ void printValue(void *data, int type) {
 }
 ```
 
-### 3. Dynamic Memory Allocation
+#### 3. Dynamic Memory Allocation
 ```c
 void *ptr = malloc(100);  // Returns void*
 int *int_ptr = (int*)ptr;  // Cast to specific type
+```
+
+#### Another example
+```c
+#include <stdio.h>
+
+int main() {
+    int aiData[3] = {10, 200, 300};
+    
+    void *pvData = &aiData[1];
+    
+    // Cast to char* for arithmetic (char is 1 byte)
+    char *pcData = (char*)pvData;
+    pcData += sizeof(int);
+    pvData = pcData;
+    
+    printf("%d", *(int*)pvData);  // 300
+    
+    return 0;
+}
 ```
