@@ -356,3 +356,14 @@ int (*func)(int a, float b);
 * int *func(int a, float b);	Function returning pointer to int, (is a Function)
 * int (*func)(int a, float b);	Pointer to function returning int, (is a Pointer)
 
+#### Note:
+For the following array declaration:
+
+double (*myArray[4])(double, double) = {&w, &x, &y, &z};
+
+Show two ways using the array to invoke the second function with arguments of 10.0 and 2.5.
+
+```c
+myArray[1](10.0, 2.5); //first notation
+(*myArray[1])(10.0, 2.5); // equivalent notation
+```
