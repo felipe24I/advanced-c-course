@@ -78,7 +78,7 @@ int main() {
 ```
 
 #### stored in arrays
-Arrays of function pointers create efficient dispatch mechanisms.
+An array of function pointers is a powerful data structure in C and C++ that stores the memory addresses of multiple functions in a single table. This allows you to call different functions dynamically by using an array index, often replacing long switch or if-else blocks. 
 
 ```c
 #include <stdio.h>
@@ -355,3 +355,4 @@ int (*func)(int a, float b);
 #### Explanation of the Difference:
 * int *func(int a, float b);	Function returning pointer to int, (is a Function)
 * int (*func)(int a, float b);	Pointer to function returning int, (is a Pointer)
+
