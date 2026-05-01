@@ -69,6 +69,7 @@ export PATH=/cygdrive/c/users/jfedin/Downloads/myDynamicLibrary:$PATH
 
 <img width="855" height="58" alt="image" src="https://github.com/user-attachments/assets/379f6df4-3717-46ec-a95e-46d747b0e6e2" />
 
+
 That works (in Git Bash)
 
 Alternative (simpler):
@@ -108,6 +109,7 @@ gcc -I ../myDynamicLibrary -c main.c -o main.o
 
 <img width="1765" height="32" alt="image" src="https://github.com/user-attachments/assets/b13c5881-8e95-4cca-8e9a-5617ed28a0ef" />
 
+
 ### 7. Link with the dynamic library
 You wrote:
 
@@ -118,6 +120,7 @@ gcc -o main.exe main.o -L..]/myDynamicLibrary -llib_mylib
 This links your program with the library
 
 <img width="1882" height="45" alt="image" src="https://github.com/user-attachments/assets/38c96f34-9197-4f52-9226-52b89248fbcc" />
+
 
 #### 8. Run the program
 In CMD:
