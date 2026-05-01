@@ -44,7 +44,7 @@ This allows other programs to know the function prototype
 In CMD, you ran:
 
 ```bash
-gcc -g -fPIC main.c -shared -o lib_mylib.dll
+gcc -shared -o lib_mylib.dll StringFunctions.c
 ```
 
 <img width="1448" height="52" alt="image" src="https://github.com/user-attachments/assets/20e893aa-368e-405e-81b0-6536780add43" />
@@ -102,7 +102,7 @@ This program uses the function from the DLL
 #### 6. Compile the client program (object file)
 
 ```bash
-gcc -I ../myDynamicLibrary -c main.c -o main.o
+gcc -o main.exe main.o ../ChallengeDynamicLibrary/lib_mylib.dll
 ```
 
 -I tells GCC where to find myLib.h
