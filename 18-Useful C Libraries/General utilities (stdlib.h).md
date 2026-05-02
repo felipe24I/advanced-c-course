@@ -400,6 +400,59 @@ int main() {
 char *getenv(const char *name);
 ```
 
+#### 6.1 system()
+```c
+int system(const char *command);
+```
+
+Executes a **shell command** from your C program
+
+#### Example
+```c
+#include <stdlib.h>
+
+int main() {
+    system("dir");   // Windows
+    // system("ls"); // Linux
+    return 0;
+}
+```
+
+#### Important
+- Security risk (command injection)
+- Slow (spawns a shell)
+- Good for quick tasks / scripts
+
+#### Use case
+- Running external programs
+- Automating commands
+
+#### 6.2 getenv()
+```c
+char *getenv(const char *name);
+```
+
+Gets the value of an **environment variable**
+
+#### Example
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char *path = getenv("PATH");
+
+    if (path)
+        printf("%s\n", path);
+
+    return 0;
+}
+```
+
+#### Notes
+- Returns NULL if variable doesn’t exist
+- Do NOT modify the returned string
+
 #### 7. Absolute values and math helpers
 ```c
 int abs(int x);
