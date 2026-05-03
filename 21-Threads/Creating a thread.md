@@ -138,3 +138,57 @@ int main() {
 - pthread_create() → creates a new thread
 - pthread_join() → waits for a thread to finish
 - pthread_exit() → terminates a thread and returns a value
+
+### Why use a struct?
+pthread_create only allows **one argument** (void*), so if you want to pass multiple values, you wrap them in a struct.
+
+#### Example: Struct + Thread
+```c
+#include <stdio.h>
+#include <pthread.h>
+
+typedef struct {
+    int x;
+    int y;
+} Data;
+
+void* multiply(void* arg) {
+    Data* d = (Data*)arg;
+
+    int* result = malloc(sizeof(int));
+    *result = d->x * d->y;
+
+    pthread_exit((void*)result);
+}
+
+int main() {
+    pthread_t t;
+    Data d = {3, 4};
+    void* res;
+
+    pthread_create(&t, NULL, multiply, &d);
+    pthread_join(t, &res);
+
+    printf("Result: %d\n", *(int*)res);
+
+    free(res);
+    return 0;
+}
+```
+
+#### Explanation (simple)
+- You create a struct (Data) → stores multiple values
+- You pass it as (void*) to the thread
+- Inside the thread → cast it back:
+
+```c
+Data* data = (Data*)arg;
+```
+
+- Access values with data->x, data->y
+
+#### Quick Summary
+- Use struct to pass multiple values
+- Cast void* → struct* inside thread
+- Use -> to access members
+- Use malloc if returning data
