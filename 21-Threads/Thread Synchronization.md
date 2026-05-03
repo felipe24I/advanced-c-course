@@ -101,3 +101,9 @@ void* increment(void* arg) {
     return NULL;
 }
 ```
+
+#### Quick sumarize
+- **Race condition →** multiple threads modify shared data incorrectly
+- **Deadlock →** threads wait forever due to circular dependency
+- **Synchronization →** use mutex/semaphores to control access
+- **Thread-safe →** code works correctly with multiple threads
