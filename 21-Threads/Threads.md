@@ -126,4 +126,5 @@ gcc program.c -o program -lpthread
 - Useful for concurrent and parallel programs
 
 ### Important note
-Each thread has its own stack so local variables are not shared amongst each thread
+- Each thread has its own stack so local variables are not shared amongst each thread
+- Threads of the same process share global variables
