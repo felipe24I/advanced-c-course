@@ -124,3 +124,6 @@ gcc program.c -o program -lpthread
 - Use pthread in C
 - Always manage synchronization (mutex, etc.)
 - Useful for concurrent and parallel programs
+
+### Important note
+Each thread has its own stack so local variables are not shared amongst each thread
