@@ -58,3 +58,11 @@ int main() {
     return 0;
 }
 ```
+
+Compile:
+
+```bash
+gcc main.c -o main -pthread
+```
+
+Now the two print statements in the same thread should show the same counter value because the mutex protects the critical section.
