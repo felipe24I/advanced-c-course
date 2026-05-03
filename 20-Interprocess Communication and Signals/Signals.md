@@ -65,3 +65,135 @@ When you press Ctrl + C, instead of stopping, it prints a message.
 
 ### Key idea for exam:
 Signals are a lightweight IPC mechanism used to notify processes of events without exchanging data.
+
+## Raising a signal
+Raising a signal means sending a signal to a process, usually to notify it that an event occurred.
+
+### Simple idea:
+“Raise” = trigger or send a signal
+
+A signal can be raised:
+
+- By the same process (to itself)
+- By another process
+- By the operating system
+
+### Common ways to raise a signal in C:
+#### 1. Using raise() (to itself)
+raise() send a signal to the current process
+
+**Syntax:** 
+
+```c
+int raise (int sig)
+```
+
+- if this function is executed successfully, the signal specified in sig is generated
+- if the call is unsuccessful, raise() returns a non-zero value
+- **Note:** the function raise can only send a signal to the program that contains it, cannot send a signal to other processes
+
+```c
+#include <stdio.h>
+#include <signal.h>
+
+void handler(int sig) {
+    printf("Signal received: %d\n", sig);
+}
+
+int main() {
+    signal(SIGINT, handler);
+
+    printf("Raising SIGINT...\n");
+    raise(SIGINT);  // Send signal to itself
+
+    return 0;
+}
+```
+
+This sends a signal to the **same process.**
+
+#### 2. Using kill() (to another process or itself)
+kill() **sends a signal to a process (or group of processes)** using its PID (Process IDentifier).
+
+- **Note:** **PID** It is a unique number assigned to every running process on a Linux, Unix, or Windows system.
+
+**Syntax:**
+
+```c
+int kill(pid_t pid, int sig);
+```
+
+- pid → Process ID
+- sig → Signal (e.g., SIGTERM, SIGKILL)
+
+**How pid works:**
+
+- pid > 0 → send to that specific process
+- pid = 0 → send to all processes in the same group
+- pid = -1 → send to all processes (with permission)
+- pid < -1 → send to a process group
+
+#### Example
+```c
+#include <signal.h>
+#include <unistd.h>
+
+int main() {
+    kill(getpid(), SIGTERM);  // Send SIGTERM to itself
+    return 0;
+}
+```
+
+This requests the process to terminate gracefully.
+
+**Common signals used with kill():**
+
+- SIGTERM → polite termination
+- SIGKILL → force termination (cannot be caught)
+- SIGSTOP → pause
+- SIGCONT → resume
+
+**Important:**
+
+- kill() returns 0 if successful
+- Returns -1 if it fails (e.g., invalid PID or no permission)
+
+#### 3. alarm() — Schedule a signal after time
+alarm() schedules a **SIGALRM signal** to be sent to the process **after a number of seconds.**
+
+**Syntax:** 
+
+```c
+unsigned int alarm(unsigned int seconds);
+```
+
+- seconds → time to wait
+- Returns remaining time of a previous alarm (if any)
+
+#### Example
+```c
+#include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
+
+void handler(int sig) {
+    printf("Alarm triggered!\n");
+}
+
+int main() {
+    signal(SIGALRM, handler);
+
+    alarm(3);  // After 3 seconds → SIGALRM
+
+    while(1);  // Wait
+    return 0;
+}
+```
+
+After 3 seconds, the signal is raised automatically.
+
+**Key behavior:**
+
+- Only one alarm at a time per process
+- Calling alarm() again replaces the previous one
+- alarm(0) → cancels the alarm
