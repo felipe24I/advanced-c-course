@@ -192,8 +192,143 @@ int main() {
 
 After 3 seconds, the signal is raised automatically.
 
+
 **Key behavior:**
 
 - Only one alarm at a time per process
 - Calling alarm() again replaces the previous one
 - alarm(0) → cancels the alarm
+  
+## Handling a Signal using the signal function
+Handling a signal means **defining what your program should do when a signal is received.**
+
+### 1. What is signal()
+The function signal() lets you **attach a handler function to a signal.**
+
+So instead of the default behavior (like terminating), your program runs your own code.
+
+### Syntax
+```c
+void (*signal(int sig, void (*handler)(int)))(int);
+```
+
+### Simplified:
+```c
+signal(signal_type, handler_function);
+```
+
+### 2. How it works (step by step)
+1. You define a handler function
+2. You register it with signal()
+3. When the signal arrives → your handler executes
+
+### 3. Basic example
+```c
+#include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
+
+void handler(int sig) {
+    printf("Signal received: %d\n", sig);
+}
+
+int main() {
+    signal(SIGINT, handler);  // handle Ctrl + C
+
+    while(1) {
+        printf("Running...\n");
+        sleep(1);
+    }
+
+    return 0;
+}
+```
+
+**What happens:**
+
+- Press Ctrl + C
+- Instead of terminating → it prints the message
+
+### 4. Default vs Custom behavior
+
+Each signal has a default action, for example:
+
+- SIGINT → terminate program
+- SIGTERM → terminate
+- SIGKILL → force kill (cannot be handled)
+
+With signal(), you override this behavior.
+
+## Handling a signal using sigaction() in C
+sigaction() is a more reliable and modern way to handle signals than signal().
+
+### Basic idea
+You create a struct sigaction, assign your handler, and register it for a signal.
+
+```c
+#include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
+
+void handler(int sig) {
+    write(1, "Signal received\n", 16);
+}
+
+int main() {
+    struct sigaction sa;
+
+    sa.sa_handler = handler;   // function to execute
+    sigemptyset(&sa.sa_mask);  // no extra signals blocked
+    sa.sa_flags = 0;           // default behavior
+
+    sigaction(SIGINT, &sa, NULL); // handle Ctrl + C
+
+    while (1) {
+        write(1, "Running...\n", 11);
+        sleep(1);
+    }
+
+    return 0;
+}
+```
+
+### What happens?
+When you press Ctrl + C, the OS sends SIGINT. Instead of terminating, the program executes:
+
+```c
+void handler(int sig)
+```
+
+So the program prints:
+
+```text
+Signal received
+```
+
+and keeps running.
+
+### Important fields
+1. Stores the handler function
+ 
+```c
+sa.sa_handler
+```
+
+2. Signals to block while the handler is running.
+
+```c
+sa.sa_mask
+```
+
+3. Extra options, for example SA_RESTART.
+
+```c
+sa.sa_flags
+```
+
+### Example with SA_RESTART
+```c
+sa.sa_flags = SA_RESTART;
+```
+
+This helps restart some interrupted system calls automatically.
