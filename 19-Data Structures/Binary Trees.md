@@ -51,3 +51,5 @@
 2. Traverse right subtree (postorder)
 3. Process the current node’s value
 - Key point – Node is processed only after both its left and right children have been processed.
+
+<img width="645" height="560" alt="image" src="https://github.com/user-attachments/assets/33060559-bf8e-4ffc-bd1a-cb223e23c858" />
