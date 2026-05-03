@@ -53,3 +53,110 @@
 - Key point – Node is processed only after both its left and right children have been processed.
 
 <img width="645" height="560" alt="image" src="https://github.com/user-attachments/assets/33060559-bf8e-4ffc-bd1a-cb223e23c858" />
+
+### Implementation
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+/* self-referential structure */
+struct treeNode {
+    int data;                         /* node value */
+    struct treeNode *leftPtr;         /* pointer to left subtree */
+    struct treeNode *rightPtr;        /* pointer to right subtree */
+};
+
+typedef struct treeNode TreeNode;
+typedef TreeNode *TreeNodePtr;
+
+/* function prototypes */
+void insertNode(TreeNodePtr *treePtr, int value);
+void inOrder(TreeNodePtr treePtr);
+void preOrder(TreeNodePtr treePtr);
+void postOrder(TreeNodePtr treePtr);
+
+int main(void) {
+    int i = 0;                        /* counter to loop from 1-10 */
+    int item = 0;                     /* variable to hold random values */
+    TreeNodePtr rootPtr = NULL;       /* tree initially empty */
+
+    srand(time(NULL));
+    printf("The numbers being placed in the tree are:\n");
+
+    /* insert 10 random numbers into the tree */
+    for (i = 1; i <= 10; i++) {
+        item = rand() % 15;
+        printf("%3d", item);
+        insertNode(&rootPtr, item);
+    }
+
+    /* traverse the tree preOrder */
+    printf("\n\nThe preOrder traversal is:\n");
+    preOrder(rootPtr);
+
+    /* traverse the tree inOrder */
+    printf("\n\nThe inOrder traversal is:\n");
+    inOrder(rootPtr);
+
+    /* traverse the tree postOrder */
+    printf("\n\nThe postOrder traversal is:\n");
+    postOrder(rootPtr);
+
+    printf("\n");
+    return 0;
+}
+
+/* insert a node into the BST */
+void insertNode(TreeNodePtr *treePtr, int value) {
+    if (*treePtr == NULL) {
+        *treePtr = malloc(sizeof(TreeNode));
+        if (*treePtr != NULL) {
+            (*treePtr)->data = value;
+            (*treePtr)->leftPtr = NULL;
+            (*treePtr)->rightPtr = NULL;
+        } else {
+            printf("%d not inserted. No memory available.\n", value);
+        }
+    } else {
+        /* data to insert is less than data in current node */
+        if (value < (*treePtr)->data) {
+            insertNode(&((*treePtr)->leftPtr), value);
+        }
+        /* data to insert is greater than data in current node */
+        else if (value > (*treePtr)->data) {
+            insertNode(&((*treePtr)->rightPtr), value);
+        } else {
+            /* duplicate data value ignored */
+            printf(" dup");
+        }
+    }
+}
+
+/* inorder traversal (left → node → right) */
+void inOrder(TreeNodePtr treePtr) {
+    if (treePtr != NULL) {
+        inOrder(treePtr->leftPtr);
+        printf("%3d", treePtr->data);
+        inOrder(treePtr->rightPtr);
+    }
+}
+
+/* preorder traversal (node → left → right) */
+void preOrder(TreeNodePtr treePtr) {
+    if (treePtr != NULL) {
+        printf("%3d", treePtr->data);
+        preOrder(treePtr->leftPtr);
+        preOrder(treePtr->rightPtr);
+    }
+}
+
+/* postorder traversal (left → right → node) */
+void postOrder(TreeNodePtr treePtr) {
+    if (treePtr != NULL) {
+        postOrder(treePtr->leftPtr);
+        postOrder(treePtr->rightPtr);
+        printf("%3d", treePtr->data);
+    }
+}
+```
