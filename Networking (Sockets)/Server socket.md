@@ -110,3 +110,6 @@ gcc server.c -o server
 ```text
 socket → bind → listen → accept → read/write → close
 ```
+
+## Illustration
+<img width="392" height="453" alt="image" src="https://github.com/user-attachments/assets/d5815e26-16cc-4e57-9ec6-a2498efc84f1" />
