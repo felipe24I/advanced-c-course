@@ -101,3 +101,6 @@ socket → connect → send/receive → close
 ./server
 ./client
 ```
+
+## Illustration
+<img width="392" height="453" alt="image" src="https://github.com/user-attachments/assets/506bf075-3fac-4268-a5ad-0f8db5ea3c0e" />
